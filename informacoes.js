@@ -1,3 +1,4 @@
-var idade = require("./idade")
-console.log(idade(2020, 2006))
-console.log(idade)
+var express = require("express")
+var app = express()
+console.log("on")
+app.listen(8081)
