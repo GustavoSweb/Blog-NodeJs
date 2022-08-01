@@ -5,7 +5,9 @@
   const bodyParser = require("body-parser")
   const admin = require("./routers/admin.js")
   const path = require("path")
+  const mongoose = require("mongoose")
   const PORT = 8081
+  const session = require("express-session")
 // Configurações
 
   // Handlebars
@@ -16,6 +18,15 @@
      app.use(bodyParser.urlencoded({ extended: false }))
      app.use(bodyParser.json())
   // Mongosse //
+    mongoose.connect("mongodb+srv://gustavo:progamacao10@cluster0.3wzok.mongodb.net/?retryWrites=true&w=majority", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }).then(()=> {
+      console.log("Banco de dados conectado com sucesso!")
+    }).catch((err)=> {
+      console.log("Deu pau! Erro: "+err)
+    })
+    
   // Boostrap //
     app.use(express.static("public"))
 
@@ -27,11 +38,9 @@
   app.get("/post", (req, res)=>{
     res.send("Lista de postagens: ")
   })
-  app.get("/admin/categorias", (req, res)=>{
-    res.render("/admin/categorias")
-  })
-  app.get("/admin/categorias/add", (req, res)=> {
-    res.render("/admin/categoriasadd")
+  app.use((req, res, next)=> {
+    console.log("Ele gostaa")
+    next()
   })
   app.use("/admin", admin)
 // Outros //
