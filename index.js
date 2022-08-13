@@ -6,7 +6,7 @@
   const admin = require("./routers/admin.js")
   const path = require("path")
   const mongoose = require("mongoose")
-  const PORT = 8081
+  const PORT = process.env.PORT || 8081
   const session = require("express-session")
   const flash = require("connect-flash")
   require("./modules/postagens.js")
