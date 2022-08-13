@@ -1,0 +1,27 @@
+
+<div class="mt-4 p-5 bg-primary  mb-4 text-white rounded" >
+  <h1>Bem vindo ao blog do NodeJs</h1>
+    <p>Veja notícias sobre progamacao, site feito com: Nodejs, express e mongodb
+    </p>
+    <button class="btn btn-primary shadow-sm">Crie uma conta</button>
+</div>
+{{#if post}}
+<h2>Postagens recentes: </h2>
+{{/if}}
+{{#each post}}
+  <div class="card mb-3">
+    <div class="card-body">
+        
+      <h4>{{titulo}}</h4>
+      <p>{{descricao}}</p>
+      <a href="/postagens/{{slug}}"><button class="btn btn-success">Leia mais</button></a>
+      <hr>
+             <small style="font-size: 0.8em">Categoria: {{categoria.name}}</small><br>
+       <small style="font-size: 0.8em" id="date">{{date}}</small>
+    </div>
+  </div>
+{{else}}
+<h2>Não a nenhuma postagem!</h2>
+{{/each}}
+  
+
