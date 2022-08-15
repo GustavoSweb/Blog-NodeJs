@@ -4,6 +4,7 @@
   const app = express()
   const bodyParser = require("body-parser")
   const admin = require("./routers/admin.js")
+  const usuario = require("./routers/usuario.js")
   const path = require("path")
   const mongoose = require("mongoose")
   const PORT = process.env.PORT || 8081
@@ -13,8 +14,9 @@
   const postagem = mongoose.model("postagens")
   require("./modules/categorias.js")
   const categoria = mongoose.model("categorias")
+  require("./modules/usuarios.js")
 // Configurações
-app.use('/public', express.static(__dirname + '/public'))
+app.use(express.static(path.resolve('public')))
   // session
     app.use(session({
       secret: "cursodenodejs",
@@ -102,6 +104,7 @@ app.use('/public', express.static(__dirname + '/public'))
     })
   })
   app.use("/admin", admin)
+  app.use("/usuario", usuario)
 // Outros //
   app.listen(PORT, ()=> {
     console.log("Servidor Rodando na porta: "+PORT)
