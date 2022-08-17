@@ -12,6 +12,9 @@
   const flash = require("connect-flash")
   require("./modules/postagens.js")
   const postagem = mongoose.model("postagens")
+  const passport = require('passport');
+require('./config/auth')(passport);
+  
   require("./modules/categorias.js")
   const categoria = mongoose.model("categorias")
   require("./modules/usuarios.js")
@@ -24,12 +27,16 @@ app.use(express.static(path.resolve('public')))
       saveUnitialized: true
       
     }))
+    app.use(passport.initialize());
+    app.use(passport.session())
   // Flash 
     app.use(flash())
     //Configuração
       app.use((req, res, next)=>{
         res.locals.success_msg = req.flash("success_msg")
         res.locals.error_msg = req.flash("error_msg")
+        res.locals.error = req.flash("error")
+        res.locals.user = req.user || null
         next()
       })
 

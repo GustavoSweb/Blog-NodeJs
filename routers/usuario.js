@@ -4,7 +4,8 @@ const router = express.Router()
 require("../modules/usuarios.js")
 const usuarios = mongoose.model("usuarios")
 const bcrypt = require("bcryptjs")
-
+const passport = require("passport")
+const auth = require("../config/auth.js")
 router.get("/registro", (req, res)=> {
   res.render("usuario/registro")
 })
@@ -62,7 +63,28 @@ router.post("/registro", (req, res)=> {
     
   }
 })
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/usuario/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
 router.get("/login", (req, res)=> {
   res.render("usuario/login")
 })
+router.get("/logout", (req, res)=> {
+  req.logout((err)=> {
+    if(err){
+      req.flash("error_msg", "Houve um erro ao deslogar")
+      res.redirect("/")
+    }
+    req.flash("success_msg", "Deslogado com sucesso!")
+    res.redirect("/")
+    })
+  })
+    
+    
+  
 module.exports = router
