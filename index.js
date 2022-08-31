@@ -13,6 +13,7 @@
   require("./modules/postagens.js")
   const postagem = mongoose.model("postagens")
   const passport = require('passport');
+  const senha = process.env.SENHA
 require('./config/auth')(passport);
   
   require("./modules/categorias.js")
@@ -48,7 +49,7 @@ app.use(express.static(path.resolve('public')))
      app.use(bodyParser.urlencoded({ extended: false }))
      app.use(bodyParser.json())
   // Mongosse //
-    mongoose.connect("mongodb+srv://gustavo:progamacao10@cluster0.3wzok.mongodb.net/?retryWrites=true&w=majority", {
+    mongoose.connect(process.env.SERVE, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }).then(()=> {
